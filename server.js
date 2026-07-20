@@ -9,21 +9,10 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ── CORS — izinkan Vercel frontend + localhost ─────────────
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  'http://localhost:3000',
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-  'http://127.0.0.1:3000',
-  'null', // file:// buka langsung di browser
-].filter(Boolean);
-
+// ── CORS — izinkan semua origin ───────────────────────────
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-    cb(new Error('CORS: origin tidak diizinkan — ' + origin));
-  },
-  credentials: true,
+  origin: '*',
+  credentials: false,
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
 }));
